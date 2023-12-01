@@ -87,13 +87,28 @@ class EjercicioEntrevista extends LitElement {
         <h1>Personajes Harry Potter</h1>
       </header>
       <main>
-        <section class="buscador">
+        <nav class="buscador">
           <form>
             <label>Buscar personaje:</label>
             <input type="text" />
             <input type="button" value="Buscar" @click="${this._filtro}" />
+            <select>
+              <option value="#">Seleccione una opción</option>
+              <option value="Gryffindor" @click="${this._opcion}">
+                Gryffindor
+              </option>
+              <option value="Hufflepuff" @click="${this._opcion}">
+                Hufflepuff
+              </option>
+              <option value="Ravenclaw" @click="${this._opcion}">
+                Ravenclaw
+              </option>
+              <option value="Slytherin" @click="${this._opcion}">
+                Slytherin
+              </option>
+            </select>
           </form>
-        </section>
+        </nav>
         <section class="personajes">
           ${this.filtro.length > 0
             ? this.filtro.map((personaje) => {
@@ -196,6 +211,20 @@ class EjercicioEntrevista extends LitElement {
     });
 
     e.target.previousElementSibling.value = "";
+
+    this.filtro = [...this.filtro];
+  }
+
+  _opcion(e) {
+    this.filtro = [];
+    let opcion = e.target.value;
+
+    this.datos.forEach((personaje) => {
+      if (personaje.house.includes(opcion)) {
+        this.filtro.push(personaje);
+        return;
+      }
+    });
 
     this.filtro = [...this.filtro];
   }
