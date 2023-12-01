@@ -106,6 +106,9 @@ class EjercicioEntrevista extends LitElement {
               <option value="Slytherin" @click="${this._opcion}">
                 Slytherin
               </option>
+              <option value="todos" @click="${this._opcion}">
+                Mostrar todos
+              </option>
             </select>
           </form>
         </nav>
@@ -218,6 +221,11 @@ class EjercicioEntrevista extends LitElement {
   _opcion(e) {
     this.filtro = [];
     let opcion = e.target.value;
+
+    if (opcion === "todos") {
+      this.filtro = [...this.datos];
+      return;
+    }
 
     this.datos.forEach((personaje) => {
       if (personaje.house.includes(opcion)) {
